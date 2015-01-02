@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -16,14 +18,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import es.tessier.mememaker.R;
 import es.tessier.mememaker.adapters.GridViewAdapter;
 import es.tessier.mememaker.models.ImageGridItem;
 import es.tessier.mememaker.ui.activities.CreateMemeActivity;
 import es.tessier.mememaker.ui.activities.MemeSettingsActivity;
-import es.tessier.mememaker.R;
-
-import java.io.File;
-import java.util.ArrayList;
+import es.tessier.mememaker.utils.FileUtilities;
 
 
 public class ImageGridFragment extends Fragment {
@@ -66,6 +69,17 @@ public class ImageGridFragment extends Fragment {
 
     private ArrayList extractFiles() {
         final ArrayList imageItems = new ArrayList();
+
+        File[] filterFiles = FileUtilities.listFiles(getActivity());
+
+        for(File file:filterFiles) {
+            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+
+            ImageGridItem imageGridItem = new ImageGridItem(bitmap,file.getName(),file.getAbsolutePath());
+
+            imageItems.add(imageGridItem);
+        }
+
         return imageItems;
     }
 

@@ -3,15 +3,17 @@ package es.tessier.mememaker;
 import es.tessier.mememaker.utils.FileUtilities;
 
 /**
- * Created by Evan Anger on 7/28/14.
+ * Created by Carlos Tessier on 30/12/14.
  */
 public class MemeMakerApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
 
-        FileUtilities.saveAssetImage(this, "dogmess.jpg");
-        FileUtilities.saveAssetImage(this, "excitedcat.jpg");
-        FileUtilities.saveAssetImage(this, "guiltypup.jpg");
+        FileUtilities.saveAssetImage(this, "Funny_Face.jpg");
+        FileUtilities.saveAssetImage(this, "Troll-face-Okay.jpg");
+        FileUtilities.saveAssetImage(this, "Troll_meme.png");
+        FileUtilities.saveAssetImage(this, "julio.png");
+
     }
 }
