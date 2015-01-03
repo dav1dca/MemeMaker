@@ -1,5 +1,7 @@
 package es.tessier.mememaker;
 
+import android.preference.PreferenceManager;
+
 import es.tessier.mememaker.utils.FileUtilities;
 
 /**
@@ -14,6 +16,8 @@ public class MemeMakerApplication extends android.app.Application {
         FileUtilities.saveAssetImage(this, "Troll-face-Okay.jpg");
         FileUtilities.saveAssetImage(this, "Troll_meme.png");
         FileUtilities.saveAssetImage(this, "julio.png");
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
     }
 }

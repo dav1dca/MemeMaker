@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import es.tessier.mememaker.MemeMakerApplicationSettings;
+
 /**
  * Created by Carlos Tessier on 30/12/14.
  */
@@ -21,7 +23,6 @@ public class FileUtilities {
 
     public final static String TAG = FileUtilities.class.getName();
     private static final int TAM_BUFFER = 1024 ;
-    private static final String STORAGE_TYPE = StorageType.PUBLIC_EXTERNAL;
     private static final String ALBUM_NAME = "mememaker";
 
 
@@ -65,11 +66,14 @@ public class FileUtilities {
 
     private static File getFileDirectory(Context context) {
 
-        if (STORAGE_TYPE.equals(StorageType.INTERNAL)) {
+        MemeMakerApplicationSettings settings = new MemeMakerApplicationSettings(context);
+        String storageType = settings.getStoragePreference();
+
+        if (storageType.equals(StorageType.INTERNAL)) {
             return context.getFilesDir();
         } else {
             if (isExternalStorageAvailable()) {
-                if (STORAGE_TYPE.equals(StorageType.PRIVATE_EXTERNAL))
+                if (storageType.equals(StorageType.PRIVATE_EXTERNAL))
                     return context.getExternalFilesDir(null);
                 else {
                     File file = new File(Environment.getExternalStoragePublicDirectory(

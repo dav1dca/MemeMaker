@@ -18,6 +18,8 @@
     <string name="edit_action">Edit</string>
     <string name="delete_action">Delete Image</string>
     <string name="add_meme_action">Add Meme</string>
+    <string name="storage_key">Storage</string>
+    <string name="storage_default_value">INTERNAL</string>
     <string name="title_storage_type">Storage Type</string>
     <string name="title_public_external_storage_type">Public External</string>
     <string name="title_private_external_storage_type">Private External</string>
