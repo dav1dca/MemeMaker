@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import es.tessier.mememaker.adapters.MemeItemListAdapter;
+import es.tessier.mememaker.database.MemeDatasource;
 import es.tessier.mememaker.models.Meme;
 import es.tessier.mememaker.models.MemeAnnotation;
 import es.tessier.mememaker.ui.activities.CreateMemeActivity;
@@ -142,5 +143,12 @@ public class MemeItemFragment extends ListFragment {
         }
 
         return workingBitmap;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MemeDatasource memeDatasource = new MemeDatasource(getActivity());
+
     }
 }
