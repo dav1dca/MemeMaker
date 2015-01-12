@@ -8,19 +8,23 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by Evan Anger on 8/17/14.
- */
+
 public class Meme implements Serializable {
     private int mId;
     private String mAssetLocation;
     private ArrayList<MemeAnnotation> mAnnotations;
     private String mName;
 
+    public Meme(){
+        this(-1,"","",new ArrayList<MemeAnnotation>());
+    }
+
     public Meme(int id, String assetLocation, String name, ArrayList<MemeAnnotation> annotations) {
         mId = id;
         mAssetLocation = assetLocation;
-        mAnnotations = annotations;
+        if(annotations != null)
+            mAnnotations = annotations;
+        else mAnnotations = new ArrayList<MemeAnnotation>();
         mName = name;
     }
 
@@ -33,7 +37,8 @@ public class Meme implements Serializable {
         mAssetLocation = assetLocation;
     }
 
-    public ArrayList<MemeAnnotation> getAnnotations() {
+    public ArrayList<MemeAnnotation> getAnnotations()
+    {
         return mAnnotations;
     }
 
@@ -55,3 +60,4 @@ public class Meme implements Serializable {
         return BitmapFactory.decodeFile(mAssetLocation);
     }
 }
+

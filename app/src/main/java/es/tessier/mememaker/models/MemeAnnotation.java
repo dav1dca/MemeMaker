@@ -2,18 +2,16 @@ package es.tessier.mememaker.models;
 
 import java.io.Serializable;
 
-/**
- * Created by Evan Anger on 8/17/14.
- */
+
 public class MemeAnnotation implements Serializable {
-    private int mId = -1;
+    private int mId;
     private String mColor;
     private String mTitle;
     private int mLocationX;
     private int mLocationY;
 
     public MemeAnnotation() {
-
+        this(-1,"","",0,0);
     }
     public MemeAnnotation(int id, String color, String title, int locationX, int locationY) {
         mId = id;

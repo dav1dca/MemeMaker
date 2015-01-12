@@ -28,7 +28,6 @@ public class MemeSQLiteHelper extends SQLiteOpenHelper {
     //Meme Table Annotations functionality
     public static final String ANNOTATIONS_TABLE = "ANNOTATIONS";
     public static final String COLUMN_ANNOTATIONS_ID = "_id";
-    public static final String COLUMN_ANNOTATIONS_NAME = "name";
     public static final String COLUMN_ANNOTATIONS_TITLE = "title";
     public static final String COLUMN_ANNOTATIONS_X = "x";
     public static final String COLUMN_ANNOTATIONS_Y = "y";
@@ -37,7 +36,6 @@ public class MemeSQLiteHelper extends SQLiteOpenHelper {
 
     static final String CREATE_TABLE_ANNOTATIONS = "CREATE TABLE " + ANNOTATIONS_TABLE + " ( "+
             COLUMN_ANNOTATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_ANNOTATIONS_NAME + " TEXT NOT NULL," +
             COLUMN_ANNOTATIONS_TITLE + " TEXT NOT NULL," +
             COLUMN_ANNOTATIONS_X + " INTEGER NOT NULL," +
             COLUMN_ANNOTATIONS_Y + " INTEGER NOT NULL," +
@@ -47,6 +45,7 @@ public class MemeSQLiteHelper extends SQLiteOpenHelper {
                        " REFERENCES MEME("+COLUMN_MEMES_ID +") );";
 
     public MemeSQLiteHelper(Context context){
+
         super(context,DB_NAME,null,DB_VERSION);
     }
 
