@@ -64,13 +64,14 @@ public class MemeDatasource {
         if (cursor.moveToFirst()) {
             do {
                 Meme meme = new Meme(getIntFromColumnName(cursor, BaseColumns._ID),
-                        getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_MEMES_NAME),
                         getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_MEMES_ASSET),
+                        getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_MEMES_NAME),
                         null);
 
                 memes.add(meme);
             }
             while (cursor.moveToNext());
+
 
 
         }
@@ -147,7 +148,7 @@ public class MemeDatasource {
             annotationValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_COLOR, memeAnnotation.getColor());
             annotationValues.put(MemeSQLiteHelper.COLUMN_FOREIGN_KEY_MEME, memeId);
 
-            database.insert(MemeSQLiteHelper.ANNOTATIONS_TABLE, null, memeValues);
+            database.insert(MemeSQLiteHelper.ANNOTATIONS_TABLE, null, annotationValues);
         }
 
         database.setTransactionSuccessful();
