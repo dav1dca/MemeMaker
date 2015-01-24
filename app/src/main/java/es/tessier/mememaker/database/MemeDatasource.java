@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -55,21 +56,56 @@ public class MemeDatasource {
 
         ArrayList<Meme> memes = new ArrayList<Meme>();
 
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
-                Meme meme = new Meme(getIntFromColumnName(cursor,BaseColumns._ID),
-                        getStringFromColumnName(cursor,MemeSQLiteHelper.COLUMN_MEMES_NAME),
-                        getStringFromColumnName(cursor,MemeSQLiteHelper.COLUMN_MEMES_ASSET),
+                Meme meme = new Meme(getIntFromColumnName(cursor, BaseColumns._ID),
+                        getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_MEMES_NAME),
+                        getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_MEMES_ASSET),
                         null);
 
                 memes.add(meme);
             }
-            while(cursor.moveToNext());
+            while (cursor.moveToNext());
 
             cursor.close();
             database.close();
         }
         return memes;
+
+    }
+
+    public void addMemeAnnotations(ArrayList<Meme> memes) {
+        SQLiteDatabase database = openReadable();
+        ArrayList<MemeAnnotation> annotations;
+        Cursor cursor;
+        MemeAnnotation annotation;
+
+        for (Meme meme : memes) {
+            annotations = new ArrayList<MemeAnnotation>();
+
+            cursor = database.rawQuery("SELECT * FROM " + MemeSQLiteHelper.ANNOTATIONS_TABLE +
+                    " WHERE " + MemeSQLiteHelper.COLUMN_FOREIGN_KEY_MEME + " = " + meme.getId(), null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    annotation = new MemeAnnotation(getIntFromColumnName(cursor, BaseColumns._ID),
+                            getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_ANNOTATIONS_COLOR),
+                            getStringFromColumnName(cursor, MemeSQLiteHelper.COLUMN_ANNOTATIONS_TITLE),
+                            getIntFromColumnName(cursor, MemeSQLiteHelper.COLUMN_ANNOTATIONS_Y),
+                            getIntFromColumnName(cursor, MemeSQLiteHelper.COLUMN_ANNOTATIONS_X)
+                    );
+
+
+                    annotations.add(annotation);
+
+                } while (cursor.moveToNext());
+
+                meme.setAnnotations(annotations);
+                cursor.close();
+            }
+        }
+
+        database.close();
 
     }
 
@@ -83,8 +119,6 @@ public class MemeDatasource {
         int columnIndex = cursor.getColumnIndex(columnName);
         return cursor.getString(columnIndex);
     }
-
-
 
 
     public void create(Meme meme) {
