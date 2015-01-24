@@ -14,9 +14,7 @@ import java.util.List;
 import es.tessier.mememaker.R;
 import es.tessier.mememaker.models.Meme;
 
-/**
- * Created by Evan Anger on 7/28/14.
- */
+
 public class MemeItemListAdapter extends BaseAdapter {
 
     private List<Meme> imageItems;

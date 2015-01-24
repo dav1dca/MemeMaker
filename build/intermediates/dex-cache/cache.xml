@@ -2,6 +2,20 @@
 <items version="2" >
 
     <item
+        jar="D:\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-2c7b3f93a4765de67fc456e30fee656c798d7e65.jar" />
+    </item>
+    <item
+        jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0dcc55e70f7ebf7238fe2ec53f662eb378ab2668">
+        <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-046eca1a81c05de5a0591e5844d72a48edfb12d3.jar" />
+    </item>
+    <item
         jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.0.0"
@@ -23,6 +37,27 @@
         <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\classes-824d32c2ba3d01c819f4b41acd3e7ffbca356652.jar" />
     </item>
     <item
+        jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\classes-824d32c2ba3d01c819f4b41acd3e7ffbca356652.jar" />
+    </item>
+    <item
+        jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c2071dcaf7a008c3b01a6381a33be55396bab09">
+        <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\classes-20618472c479d1b7ac91856ea74b6a1f9108ac5b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\libs\commons-io-2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\commons-io-2.4-6f226148ed00c286004ad90232f218f505d83c56.jar" />
+    </item>
+    <item
         jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\libs\commons-io-2.4.jar"
         jumboMode="false"
         revision="21.0.0"
@@ -42,6 +77,13 @@
         revision="21.0.0"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
         <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-2c7b3f93a4765de67fc456e30fee656c798d7e65.jar" />
+    </item>
+    <item
+        jar="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\Carlos\AndroidStudioGit\MemeMaker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-12216b5bd00edce21cbe0ad2dcfeda48f24db334.jar" />
     </item>
 
 </items>

@@ -29,6 +29,7 @@ public class MemeDatasource {
         return mMemeSqlLiteHelper.getReadableDatabase();
     }
 
+
     public SQLiteDatabase openWriteable() {
         return mMemeSqlLiteHelper.getWritableDatabase();
     }
@@ -38,7 +39,11 @@ public class MemeDatasource {
     }
 
     public ArrayList<Meme> read() {
-        return null;
+
+        ArrayList<Meme> memes = readMemes();
+        addMemeAnnotations(memes);
+
+        return memes;
     }
 
     public ArrayList<Meme> readMemes() {
@@ -67,9 +72,11 @@ public class MemeDatasource {
             }
             while (cursor.moveToNext());
 
-            cursor.close();
-            database.close();
+
         }
+        cursor.close();
+        database.close();
+
         return memes;
 
     }
@@ -134,16 +141,17 @@ public class MemeDatasource {
 
         for (MemeAnnotation memeAnnotation : meme.getAnnotations()) {
             ContentValues annotationValues = new ContentValues();
-            memeValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_TITLE, memeAnnotation.getTitle());
-            memeValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_X, memeAnnotation.getLocationX());
-            memeValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_Y, memeAnnotation.getLocationY());
-            memeValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_COLOR, memeAnnotation.getColor());
-            memeValues.put(MemeSQLiteHelper.COLUMN_FOREIGN_KEY_MEME, memeId);
+            annotationValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_TITLE, memeAnnotation.getTitle());
+            annotationValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_X, memeAnnotation.getLocationX());
+            annotationValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_Y, memeAnnotation.getLocationY());
+            annotationValues.put(MemeSQLiteHelper.COLUMN_ANNOTATIONS_COLOR, memeAnnotation.getColor());
+            annotationValues.put(MemeSQLiteHelper.COLUMN_FOREIGN_KEY_MEME, memeId);
 
             database.insert(MemeSQLiteHelper.ANNOTATIONS_TABLE, null, memeValues);
         }
 
         database.setTransactionSuccessful();
+        database.endTransaction();
         close(database);
 
     }

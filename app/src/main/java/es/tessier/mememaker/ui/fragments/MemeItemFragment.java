@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import es.tessier.mememaker.adapters.MemeItemListAdapter;
 import es.tessier.mememaker.database.MemeDatasource;
 import es.tessier.mememaker.models.Meme;
@@ -36,6 +38,7 @@ public class MemeItemFragment extends ListFragment {
     private Menu mMenu;
     private int mSelectedItem;
     private MemeItemListAdapter mMemeItemListAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +101,10 @@ public class MemeItemFragment extends ListFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.settings_action) {
+        if (item.getItemId() == R.id.settings_action) {
             Intent intent = new Intent(this.getActivity(), MemeSettingsActivity.class);
             startActivity(intent);
-        } else if(item.getItemId() == R.id.share_action) {
+        } else if (item.getItemId() == R.id.share_action) {
             //need to build the image here.
             Meme meme = (Meme) getListAdapter().getItem(mSelectedItem);
             Bitmap bitmap = createMeme(meme);
@@ -112,7 +115,7 @@ public class MemeItemFragment extends ListFragment {
             shareIntent.putExtra(Intent.EXTRA_STREAM, uriForShare);
             shareIntent.setType("image/jpeg");
             startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-        } else if(item.getItemId() == R.id.edit_action) {
+        } else if (item.getItemId() == R.id.edit_action) {
             Toast.makeText(this.getActivity(), "Into edit image now", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this.getActivity(), CreateMemeActivity.class);
             Meme meme = (Meme) getListAdapter().getItem(mSelectedItem);
@@ -129,7 +132,7 @@ public class MemeItemFragment extends ListFragment {
         Canvas canvas = new Canvas(workingBitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        for(MemeAnnotation annotation : meme.getAnnotations()) {
+        for (MemeAnnotation annotation : meme.getAnnotations()) {
             paint.setColor(Color.parseColor(annotation.getColor()));
             paint.setTextSize(12 * scale);
 
@@ -149,6 +152,9 @@ public class MemeItemFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         MemeDatasource memeDatasource = new MemeDatasource(getActivity());
+
+        ArrayList<Meme> memes = memeDatasource.read();
+        setListAdapter(new MemeItemListAdapter(getActivity(), memes));
 
     }
 }
