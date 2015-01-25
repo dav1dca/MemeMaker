@@ -61,7 +61,7 @@ public class MemeItemFragment extends ListFragment {
         this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Meme meme = (Meme) getListAdapter().getItem(i);
+                final Meme meme = (Meme) getListAdapter().getItem(i);
                 final int memeId = meme.getId();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MemeItemFragment.this.getActivity())
                         .setMessage(getString(R.string.dialog_message_delete_meme))
@@ -72,7 +72,10 @@ public class MemeItemFragment extends ListFragment {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Toast.makeText(MemeItemFragment.this.getActivity(), "Should delete", Toast.LENGTH_LONG).show();
-                                        mMemeItemListAdapter.notifyDataSetChanged();
+                                        MemeDatasource memeDatasource = new MemeDatasource( MemeItemFragment.this.getActivity());
+                                        memeDatasource.delete(memeId);
+                                        refreshMemes();
+                                        //mMemeItemListAdapter.notifyDataSetChanged();
                                         mMenu.findItem(R.id.share_action).setVisible(true);
                                         mMenu.findItem(R.id.edit_action).setVisible(true);
 
@@ -151,10 +154,16 @@ public class MemeItemFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        refreshMemes();
+
+    }
+
+    private void refreshMemes() {
         MemeDatasource memeDatasource = new MemeDatasource(getActivity());
 
         ArrayList<Meme> memes = memeDatasource.read();
         setListAdapter(new MemeItemListAdapter(getActivity(), memes));
-
     }
+
+
 }

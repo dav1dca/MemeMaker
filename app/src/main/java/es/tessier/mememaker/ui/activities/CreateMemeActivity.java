@@ -50,14 +50,14 @@ public class CreateMemeActivity extends Activity {
         mMemeContainer = (FrameLayout) findViewById(R.id.meme_container);
         mMemeBitmapHolder = (MemeImageView) findViewById(R.id.meme_bitmap_container);
 
-        if(this.getIntent().hasExtra(EXTRA_IMAGE_FILE_PATH)) {
+        if (this.getIntent().hasExtra(EXTRA_IMAGE_FILE_PATH)) {
             mImageFilePath = this.getIntent().getStringExtra(EXTRA_IMAGE_FILE_PATH);
             mCurrentMeme = new Meme(-1, mImageFilePath, "", null);
         } else {
-            mCurrentMeme = (Meme)this.getIntent().getSerializableExtra(EXTRA_MEME_OBJECT);
+            mCurrentMeme = (Meme) this.getIntent().getSerializableExtra(EXTRA_MEME_OBJECT);
             mImageFilePath = mCurrentMeme.getAssetLocation();
 
-            for(MemeAnnotation annotation : mCurrentMeme.getAnnotations()) {
+            for (MemeAnnotation annotation : mCurrentMeme.getAnnotations()) {
                 addEditTextOverImage(
                         annotation.getTitle(),
                         annotation.getLocationX(),
@@ -92,7 +92,7 @@ public class CreateMemeActivity extends Activity {
         annotation.setLocationX(touchX);
         annotation.setLocationY(touchY);
 
-        if(mCurrentMeme.getAnnotations() == null) {
+        if (mCurrentMeme.getAnnotations() == null) {
             mCurrentMeme.setAnnotations(new ArrayList<MemeAnnotation>());
         }
 
@@ -145,10 +145,10 @@ public class CreateMemeActivity extends Activity {
                     });
             builder.show();
             return true;
-        } else if(id == android.R.id.home) {
+        } else if (id == android.R.id.home) {
             finish();
             return true;
-        } else if(id == R.id.choose_font_action) {
+        } else if (id == R.id.choose_font_action) {
 
         }
         return super.onOptionsItemSelected(item);
@@ -177,7 +177,14 @@ public class CreateMemeActivity extends Activity {
         }
 
         MemeDatasource memeDatasource = new MemeDatasource(this);
-        memeDatasource.create(mCurrentMeme);
+
+        if (mCurrentMeme.getId() != -1) {
+            memeDatasource.update(mCurrentMeme);
+
+        } else {
+            memeDatasource.create(mCurrentMeme);
+
+        }
 
     }
 }
