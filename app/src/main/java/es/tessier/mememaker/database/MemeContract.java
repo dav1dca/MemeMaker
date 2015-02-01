@@ -10,7 +10,7 @@ public class MemeContract {
     public MemeContract(){}
 
     public static abstract class MemesEntry implements BaseColumns {
-        public static final String MEMES_TABLE = "MEMES";
+        public static final String TABLE_NAME = "MEMES";
         public static final String COLUMN_ASSET = "asset";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_CREATE_DATE = "create_date";

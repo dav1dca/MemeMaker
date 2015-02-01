@@ -16,7 +16,7 @@ public class MemeSQLiteHelper extends SQLiteOpenHelper {
     public final static int DB_VERSION = 2;
     public static final String TAG = MemeSQLiteHelper.class.getName();
 
-    public static final String CREATE_TABLE_MEMES = "CREATE TABLE " + MemesEntry.MEMES_TABLE + " ( "+
+    public static final String CREATE_TABLE_MEMES = "CREATE TABLE " + MemesEntry.TABLE_NAME + " ( "+
             MemesEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             MemesEntry.COLUMN_ASSET + " TEXT NOT NULL," +
             MemesEntry.COLUMN_NAME + " TEXT NOT NULL,\" +" +
@@ -31,8 +31,8 @@ public class MemeSQLiteHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (" + AnnotationsEntry.COLUMN_FK_MEME + ") " +
                        " REFERENCES MEME("+MemesEntry.COLUMN_ID +") );";
 
-    static final String ALTER_ADD_CREATE_DATE ="ALTER TABLE "+ MemesEntry.MEMES_TABLE +
-                                                " ADD COLUMN "+ MemesEntry.COLUMN_CREATE_DATE+ " INTEGER );";
+    static final String ALTER_ADD_CREATE_DATE ="ALTER TABLE "+ MemesEntry.TABLE_NAME +
+                                                " ADD COLUMN "+ MemesEntry.COLUMN_CREATE_DATE+ " INTEGER ;";
 
     public MemeSQLiteHelper(Context context){
 

@@ -7,11 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import es.tessier.mememaker.database.MemeContract.AnnotationsEntry;
+import es.tessier.mememaker.database.MemeContract.MemesEntry;
 import es.tessier.mememaker.models.Meme;
 import es.tessier.mememaker.models.MemeAnnotation;
-import es.tessier.mememaker.database.MemeContract.MemesEntry;
-import es.tessier.mememaker.database.MemeContract.AnnotationsEntry;
 
 public class MemeDatasource {
 
@@ -49,13 +50,13 @@ public class MemeDatasource {
         SQLiteDatabase database = openReadable();
 
         Cursor cursor = database.query(
-                MemesEntry.MEMES_TABLE,
+                MemesEntry.TABLE_NAME,
                 new String[]{MemesEntry.COLUMN_NAME, BaseColumns._ID, MemesEntry.COLUMN_ASSET},
                 null, // selection
                 null, // selection Args
                 null, //Group by
                 null, // Having
-                null  //OrderBy
+                MemesEntry.COLUMN_CREATE_DATE + " DESC"  //OrderBy
         );
 
         ArrayList<Meme> memes = new ArrayList<Meme>();
@@ -135,8 +136,9 @@ public class MemeDatasource {
         ContentValues memeValues = new ContentValues();
         memeValues.put(MemesEntry.COLUMN_NAME, meme.getName());
         memeValues.put(MemesEntry.COLUMN_ASSET, meme.getAssetLocation());
+        memeValues.put(MemesEntry.COLUMN_CREATE_DATE, new Date().getTime());
 
-        long memeId = database.insert(MemesEntry.MEMES_TABLE, null, memeValues);
+        long memeId = database.insert(MemesEntry.TABLE_NAME, null, memeValues);
 
         for (MemeAnnotation memeAnnotation : meme.getAnnotations()) {
             ContentValues annotationValues = new ContentValues();
@@ -166,7 +168,7 @@ public class MemeDatasource {
 
         updateMemeValues.put(MemesEntry.COLUMN_NAME, meme.getName());
 
-        database.update(MemesEntry.MEMES_TABLE,
+        database.update(MemesEntry.TABLE_NAME,
                 updateMemeValues,
                 String.format("%s=%d", BaseColumns._ID, meme.getId()),
                 null);
@@ -206,7 +208,7 @@ public class MemeDatasource {
                 String.format("%s=%d", AnnotationsEntry.COLUMN_FK_MEME, memeId),
                 null);
 
-        database.delete(MemesEntry.MEMES_TABLE,
+        database.delete(MemesEntry.TABLE_NAME,
                 String.format("%s=%d", BaseColumns._ID, memeId),
                 null);
 
