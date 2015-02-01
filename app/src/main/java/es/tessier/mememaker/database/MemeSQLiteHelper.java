@@ -6,43 +6,33 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import es.tessier.mememaker.database.MemeContract.MemesEntry;
+import es.tessier.mememaker.database.MemeContract.AnnotationsEntry;
 
 
 public class MemeSQLiteHelper extends SQLiteOpenHelper {
 
     public final static String DB_NAME ="memes.db";
-    public final static int DB_VERSION = 1;
+    public final static int DB_VERSION = 2;
     public static final String TAG = MemeSQLiteHelper.class.getName();
 
-    //Meme Table functionality
-    public static final String MEMES_TABLE = "MEMES";
-    public static final String COLUMN_MEMES_ASSET = "asset";
-    public static final String COLUMN_MEMES_NAME = "name";
-    public static final String COLUMN_MEMES_ID = "_id";
+    public static final String CREATE_TABLE_MEMES = "CREATE TABLE " + MemesEntry.MEMES_TABLE + " ( "+
+            MemesEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            MemesEntry.COLUMN_ASSET + " TEXT NOT NULL," +
+            MemesEntry.COLUMN_NAME + " TEXT NOT NULL,\" +" +
+            MemesEntry.COLUMN_CREATE_DATE + " INTEGER );";
 
-    public static final String CREATE_TABLE_MEMES = "CREATE TABLE " + MEMES_TABLE + " ( "+
-            COLUMN_MEMES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_MEMES_ASSET + " TEXT NOT NULL," +
-            COLUMN_MEMES_NAME + " TEXT NOT NULL );";
+    static final String CREATE_TABLE_ANNOTATIONS = "CREATE TABLE " + AnnotationsEntry.TABLE_NAME + " ( "+
+            AnnotationsEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            AnnotationsEntry.COLUMN_TITLE + " TEXT NOT NULL," +
+            AnnotationsEntry.COLUMN_X + " INTEGER NOT NULL," +
+            AnnotationsEntry.COLUMN_Y + " INTEGER NOT NULL," +
+            AnnotationsEntry.COLUMN_COLOR + " INTEGER NOT NULL, " +
+            "FOREIGN KEY (" + AnnotationsEntry.COLUMN_FK_MEME + ") " +
+                       " REFERENCES MEME("+MemesEntry.COLUMN_ID +") );";
 
-    //Meme Table Annotations functionality
-    public static final String ANNOTATIONS_TABLE = "ANNOTATIONS";
-    public static final String COLUMN_ANNOTATIONS_ID = "_id";
-    public static final String COLUMN_ANNOTATIONS_TITLE = "title";
-    public static final String COLUMN_ANNOTATIONS_X = "x";
-    public static final String COLUMN_ANNOTATIONS_Y = "y";
-    public static final String COLUMN_ANNOTATIONS_COLOR = "color";
-    public static final String COLUMN_FOREIGN_KEY_MEME = "fk_meme_id";
-
-    static final String CREATE_TABLE_ANNOTATIONS = "CREATE TABLE " + ANNOTATIONS_TABLE + " ( "+
-            COLUMN_ANNOTATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_ANNOTATIONS_TITLE + " TEXT NOT NULL," +
-            COLUMN_ANNOTATIONS_X + " INTEGER NOT NULL," +
-            COLUMN_ANNOTATIONS_Y + " INTEGER NOT NULL," +
-            COLUMN_ANNOTATIONS_COLOR + " INTEGER NOT NULL, " +
-            COLUMN_FOREIGN_KEY_MEME + " INTEGER NOT NULL, " +
-            "FOREIGN KEY (" + COLUMN_FOREIGN_KEY_MEME + ") " +
-                       " REFERENCES MEME("+COLUMN_MEMES_ID +") );";
+    static final String ALTER_ADD_CREATE_DATE ="ALTER TABLE "+ MemesEntry.MEMES_TABLE +
+                                                " ADD COLUMN "+ MemesEntry.COLUMN_CREATE_DATE+ " INTEGER );";
 
     public MemeSQLiteHelper(Context context){
 
@@ -62,7 +52,9 @@ public class MemeSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        switch (oldVersion){
+            case 1: db.execSQL(ALTER_ADD_CREATE_DATE );
+        }
     }
 
 
